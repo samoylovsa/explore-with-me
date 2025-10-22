@@ -1,14 +1,41 @@
 services:
   stats-server:
+    build: ./stats-server
     ports:
       - "9090:9090"
+    depends_on:
+      - stats-db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://stats-db:5432/stats_db
+      - SPRING_DATASOURCE_USERNAME=stats_db_user
+      - SPRING_DATASOURCE_PASSWORD=stats_db_password
 
   stats-db:
     image: postgres:16.1
+    environment:
+      - POSTGRES_DB=stats_db
+      - POSTGRES_USER=stats_db_user
+      - POSTGRES_PASSWORD=stats_db_password
+    ports:
+      - "5433:5432"
 
   main-service:
+    build: ./main-service
     ports:
       - "8080:8080"
+    depends_on:
+      - main-db
+      - stats-server
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://main-db:5432/main_db
+      - SPRING_DATASOURCE_USERNAME=main_db_user
+      - SPRING_DATASOURCE_PASSWORD=main_db_password
 
   main-db:
     image: postgres:16.1
+    environment:
+      - POSTGRES_DB=main_db
+      - POSTGRES_USER=main_db_user
+      - POSTGRES_PASSWORD=main_db_password
+    ports:
+      - "5432:5432"
