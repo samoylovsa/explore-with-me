@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="MainServiceApp" type="Application" factoryName="Application" nameIsGenerated="true">
+  <configuration default="false" name="EwmServiceApp" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="ru.practicum.ewm.EwmServiceApp" />
-    <module name="main-service" />
+    <module name="ewm-service" />
     <option name="VM_PARAMETERS" value="-Dspring.profiles.active=local" />
     <extension name="coverage">
       <pattern>
