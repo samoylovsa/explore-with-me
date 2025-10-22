@@ -6,6 +6,7 @@ services:
     depends_on:
       - stats-db
     environment:
+      - SPRING_PROFILES_ACTIVE=  # принудительно использует application.properties
       - SPRING_DATASOURCE_URL=jdbc:postgresql://stats-db:5432/stats_db
       - SPRING_DATASOURCE_USERNAME=stats_db_user
       - SPRING_DATASOURCE_PASSWORD=stats_db_password
@@ -27,15 +28,17 @@ services:
       - ewm-db
       - stats-server
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://main-db:5432/main_db
-      - SPRING_DATASOURCE_USERNAME=main_db_user
-      - SPRING_DATASOURCE_PASSWORD=main_db_password
+      - SPRING_PROFILES_ACTIVE=  # принудительно использует application.properties
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://ewm-db:5432/ewm-db
+      - SPRING_DATASOURCE_USERNAME=ewm_db_user
+      - SPRING_DATASOURCE_PASSWORD=ewm_db_password
+      - STATS_SERVER_URL=http://stats-server:9090
 
   ewm-db:
     image: postgres:16.1
     environment:
-      - POSTGRES_DB=main_db
-      - POSTGRES_USER=main_db_user
-      - POSTGRES_PASSWORD=main_db_password
+      - POSTGRES_DB=ewm_db
+      - POSTGRES_USER=ewm_db_user
+      - POSTGRES_PASSWORD=ewm_db_password
     ports:
       - "5432:5432"
