@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="StatsServerApp" type="Application" factoryName="Application" activateToolWindowBeforeRun="false">
-    <option name="MAIN_CLASS_NAME" value="ru.practicum.ewm.StatsServerApp" />
+    <option name="MAIN_CLASS_NAME" value="ewm.StatsServerApplication" />
     <module name="stats-server" />
     <option name="VM_PARAMETERS" value="-Dspring.profiles.active=local" />
     <extension name="coverage">
