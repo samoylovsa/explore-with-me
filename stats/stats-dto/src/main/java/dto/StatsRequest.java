@@ -7,6 +7,7 @@ import lombok.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Builder
 @Getter
 @Setter
 @ToString
@@ -19,7 +20,6 @@ public class StatsRequest {
     LocalDateTime start;
 
     @NotNull
-    @PastOrPresent
     LocalDateTime end;
 
     List<String> uris;

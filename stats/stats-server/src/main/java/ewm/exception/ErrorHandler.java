@@ -15,12 +15,23 @@ public class ErrorHandler {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorResponse handleException(Exception exception, HttpStatus httpStatus) {
-        log.warn("Error 500: {}", exception.getMessage(), exception);
+    public ErrorResponse handleException(Exception ex, HttpStatus httpStatus) {
+        log.warn("Error 500: {}", ex.getMessage(), ex);
         StringWriter stringWriter = new StringWriter();
         PrintWriter printWriter = new PrintWriter(stringWriter);
-        exception.printStackTrace(printWriter);
+        ex.printStackTrace(printWriter);
         String stackTrace = stringWriter.toString();
-        return new ErrorResponse(httpStatus, exception.getMessage(), stackTrace);
+        return new ErrorResponse(httpStatus, ex.getMessage(), stackTrace);
+    }
+
+    @ExceptionHandler(ValidationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleValidationException(ValidationException ex) {
+        log.warn("Validation error: {}", ex.getMessage(), ex);
+        StringWriter stringWriter = new StringWriter();
+        PrintWriter printWriter = new PrintWriter(stringWriter);
+        ex.printStackTrace(printWriter);
+        String stackTrace = stringWriter.toString();
+        return new ErrorResponse(HttpStatus.BAD_REQUEST, ex.getMessage(), stackTrace);
     }
 }
