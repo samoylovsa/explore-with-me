@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS stats (
+    id BIGSERIAL PRIMARY KEY,
+    app VARCHAR(100),
+    uri VARCHAR(500),
+    ip VARCHAR(45),
+    timestamp TIMESTAMP
+);
