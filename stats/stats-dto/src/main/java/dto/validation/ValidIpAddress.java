@@ -12,6 +12,8 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidIpAddress {
     String message() default "IP-адрес должен быть в формате IPv4";
+
     Class<?>[] groups() default {};
+
     Class<? extends Payload>[] payload() default {};
 }
