@@ -12,6 +12,7 @@ import java.util.List;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder(toBuilder = true)
 public class StatsRequest {
     @NotNull
     @PastOrPresent
