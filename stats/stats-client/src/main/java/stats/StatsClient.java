@@ -1,7 +1,9 @@
+package stats;
+
 import dto.GetStatsDto;
 import dto.SaveHitDto;
 import dto.StatsRequest;
-import lombok.RequiredArgsConstructor;
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -15,18 +17,32 @@ import java.util.List;
 
 @Slf4j
 @Component
-@RequiredArgsConstructor
 public class StatsClient {
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    private final RestClient restClient;
+    private RestClient restClient;
+
+    @Value("${stats-server.url}")
+    private String baseUrl;
+
+    public StatsClient() {
+    }
 
     public StatsClient(@Value("${stats-server.url}") String baseUrl) {
         this.restClient = RestClient.builder()
                 .baseUrl(baseUrl)
                 .defaultHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
                 .build();
+    }
+
+    @PostConstruct
+    public void init() {
+        this.restClient = RestClient.builder()
+                .baseUrl(baseUrl)
+                .defaultHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
+                .build();
+        log.info("StatsClient initialized with baseUrl: {}", baseUrl);
     }
 
     public void saveHit(SaveHitDto saveHitDto) {
