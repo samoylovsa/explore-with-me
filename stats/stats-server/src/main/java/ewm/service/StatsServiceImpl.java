@@ -35,19 +35,17 @@ public class StatsServiceImpl implements StatsService {
 
         List<GetStatsDto> result;
         if (Boolean.TRUE.equals(statsRequest.getUnique())) {
-            List<Object[]> uniqueStats = statsRepository.findUniqueStatsGrouped(
+            result = statsRepository.findUniqueStatsGrouped(
                     statsRequest.getStart(),
                     statsRequest.getEnd(),
                     statsRequest.getUris()
             );
-            result = statsMapper.mapToGetStatsDto(uniqueStats);
         } else {
-            List<Object[]> nonUniqueStats = statsRepository.findStatsGrouped(
+            result = statsRepository.findStatsGrouped(
                     statsRequest.getStart(),
                     statsRequest.getEnd(),
                     statsRequest.getUris()
             );
-            result = statsMapper.mapToGetStatsDto(nonUniqueStats);
         }
 
         log.info("Found {} stats records", result.size());
