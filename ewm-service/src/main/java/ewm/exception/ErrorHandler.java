@@ -126,4 +126,15 @@ public class ErrorHandler {
                 LocalDateTime.now()
         );
     }
+
+    @ExceptionHandler(NotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ApiError handleNotFound(NotFoundException ex) {
+        return new ApiError(
+                HttpStatus.NOT_FOUND,
+                "The required object was not found.",
+                ex.getMessage(),
+                LocalDateTime.now()
+        );
+    }
 }
