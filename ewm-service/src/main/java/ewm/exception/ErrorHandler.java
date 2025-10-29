@@ -98,20 +98,10 @@ public class ErrorHandler {
     @ExceptionHandler(DataIntegrityViolationException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
     public ApiError handleDataIntegrityViolation(DataIntegrityViolationException ex) {
-        String message = "Integrity constraint violation";
-
-        if (ex.getMessage().contains("uq_category_name")) {
-            message = "Category name already exists";
-        } else if (ex.getMessage().contains("uq_email")) {
-            message = "Email already exists";
-        } else if (ex.getMessage().contains("uq_request")) {
-            message = "Participation request already exists";
-        }
-
         return new ApiError(
                 HttpStatus.CONFLICT,
                 "Integrity constraint has been violated.",
-                message,
+                ex.getMessage(),
                 LocalDateTime.now()
         );
     }
