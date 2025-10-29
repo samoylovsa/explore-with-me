@@ -2,6 +2,7 @@ package ewm.exception;
 
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -89,6 +90,38 @@ public class ErrorHandler {
         return new ApiError(
                 HttpStatus.BAD_REQUEST,
                 "Incorrectly made request.",
+                ex.getMessage(),
+                LocalDateTime.now()
+        );
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ApiError handleDataIntegrityViolation(DataIntegrityViolationException ex) {
+        String message = "Integrity constraint violation";
+
+        if (ex.getMessage().contains("uq_category_name")) {
+            message = "Category name already exists";
+        } else if (ex.getMessage().contains("uq_email")) {
+            message = "Email already exists";
+        } else if (ex.getMessage().contains("uq_request")) {
+            message = "Participation request already exists";
+        }
+
+        return new ApiError(
+                HttpStatus.CONFLICT,
+                "Integrity constraint has been violated.",
+                message,
+                LocalDateTime.now()
+        );
+    }
+
+    @ExceptionHandler(ConflictException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ApiError handleConflict(ConflictException ex) {
+        return new ApiError(
+                HttpStatus.CONFLICT,
+                "For the requested operation the conditions are not met.",
                 ex.getMessage(),
                 LocalDateTime.now()
         );
