@@ -8,10 +8,13 @@ import ewm.mapper.category.CategoryMapper;
 import ewm.model.category.Category;
 import ewm.repository.category.CategoryRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -57,12 +60,17 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<CategoryDto> getCategories(Integer from, Integer size) {
-        return List.of();
+        Pageable pageable = PageRequest.of(from / size, size);
+        List<Category> categories = categoryRepository.findAll(pageable).getContent();
+        return categories.stream()
+                .map(categoryMapper::toDto)
+                .collect(Collectors.toList());
     }
 
     @Override
     public CategoryDto getCategoryById(Long catId) {
-        return null;
+        Category category = getCategoryEntity(catId);
+        return categoryMapper.toDto(category);
     }
 
     private Category getCategoryEntity(Long catId) {
