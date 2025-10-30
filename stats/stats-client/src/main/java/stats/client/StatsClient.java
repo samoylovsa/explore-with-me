@@ -68,7 +68,7 @@ public class StatsClient {
         try {
             return restClient.get()
                     .uri(uriBuilder -> {
-                        uriBuilder.path("/stats/client")
+                        uriBuilder.path("/stats")
                                 .queryParam("start", statsRequest.getStart().format(DATE_TIME_FORMATTER))
                                 .queryParam("end", statsRequest.getEnd().format(DATE_TIME_FORMATTER))
                                 .queryParam("unique", statsRequest.getUnique() != null ? statsRequest.getUnique() : false);
