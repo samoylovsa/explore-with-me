@@ -1,4 +1,4 @@
-package ewm.service;
+package stats.server.service;
 
 import dto.GetStatsDto;
 import dto.SaveHitDto;

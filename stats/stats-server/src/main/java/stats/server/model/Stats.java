@@ -1,4 +1,4 @@
-package ewm.model;
+package stats.server.model;
 
 
 import jakarta.persistence.*;

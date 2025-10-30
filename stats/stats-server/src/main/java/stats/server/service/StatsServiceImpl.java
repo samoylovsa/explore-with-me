@@ -1,12 +1,12 @@
-package ewm.service;
+package stats.server.service;
 
 import dto.GetStatsDto;
 import dto.SaveHitDto;
 import dto.StatsRequest;
-import ewm.exception.ValidationException;
-import ewm.mapper.StatsMapper;
-import ewm.model.Stats;
-import ewm.repository.StatsRepository;
+import stats.server.exception.ValidationException;
+import stats.server.mapper.StatsMapper;
+import stats.server.model.Stats;
+import stats.server.repository.StatsRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
