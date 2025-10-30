@@ -1,4 +1,4 @@
-package ewm.exception;
+package stats.server.exception;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -15,13 +15,13 @@ public class ErrorHandler {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorResponse handleException(Exception ex, HttpStatus httpStatus) {
+    public ErrorResponse handleException(Exception ex) {
         log.warn("Error 500: {}", ex.getMessage(), ex);
         StringWriter stringWriter = new StringWriter();
         PrintWriter printWriter = new PrintWriter(stringWriter);
         ex.printStackTrace(printWriter);
         String stackTrace = stringWriter.toString();
-        return new ErrorResponse(httpStatus, ex.getMessage(), stackTrace);
+        return new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), stackTrace);
     }
 
     @ExceptionHandler(ValidationException.class)

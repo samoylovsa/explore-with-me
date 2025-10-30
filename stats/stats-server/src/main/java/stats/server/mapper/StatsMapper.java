@@ -1,7 +1,7 @@
-package ewm.mapper;
+package stats.server.mapper;
 
 import dto.SaveHitDto;
-import ewm.model.Stats;
+import stats.server.model.Stats;
 import org.springframework.stereotype.Component;
 
 @Component

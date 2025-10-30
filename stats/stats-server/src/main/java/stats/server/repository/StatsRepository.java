@@ -1,7 +1,7 @@
-package ewm.repository;
+package stats.server.repository;
 
 import dto.GetStatsDto;
-import ewm.model.Stats;
+import stats.server.model.Stats;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

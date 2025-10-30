@@ -1,4 +1,4 @@
-package stats;
+package stats.client;
 
 import dto.GetStatsDto;
 import dto.SaveHitDto;
@@ -68,7 +68,7 @@ public class StatsClient {
         try {
             return restClient.get()
                     .uri(uriBuilder -> {
-                        uriBuilder.path("/stats")
+                        uriBuilder.path("/stats/client")
                                 .queryParam("start", statsRequest.getStart().format(DATE_TIME_FORMATTER))
                                 .queryParam("end", statsRequest.getEnd().format(DATE_TIME_FORMATTER))
                                 .queryParam("unique", statsRequest.getUnique() != null ? statsRequest.getUnique() : false);
