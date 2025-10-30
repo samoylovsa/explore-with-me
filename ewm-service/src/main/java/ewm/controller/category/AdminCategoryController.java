@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class AdminCategoryController {
 
-    CategoryService categoryService;
+    private final CategoryService categoryService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

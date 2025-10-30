@@ -1,4 +1,4 @@
-package ewm.exception;
+package stats.server.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

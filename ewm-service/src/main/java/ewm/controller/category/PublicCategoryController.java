@@ -18,7 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PublicCategoryController {
 
-    CategoryService categoryService;
+    private final CategoryService categoryService;
 
     @GetMapping
     public List<CategoryDto> getCategories(

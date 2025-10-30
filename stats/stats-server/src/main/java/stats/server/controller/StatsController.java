@@ -1,9 +1,9 @@
-package ewm.controller;
+package stats.server.controller;
 
 import dto.GetStatsDto;
 import dto.SaveHitDto;
 import dto.StatsRequest;
-import ewm.service.StatsService;
+import stats.server.service.StatsService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
