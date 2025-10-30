@@ -28,6 +28,7 @@ public class AdminCategoryController {
     }
 
     @DeleteMapping("/{catId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCategory(@PathVariable @NotNull Long catId) {
         log.info("Received request to delete category with id: {}", catId);
         categoryService.deleteCategory(catId);
@@ -36,8 +37,8 @@ public class AdminCategoryController {
     @PatchMapping("/{catId}")
     public CategoryDto updateCategory(
             @PathVariable @NotNull Long catId,
-            @Valid @RequestBody CategoryDto CategoryDto) {
-        log.info("Received request: {} to update category with id: {}", CategoryDto, catId);
-        return categoryService.updateCategory(catId, CategoryDto);
+            @Valid @RequestBody CategoryDto categoryDto) {
+        log.info("Received request: {} to update category with id: {}", categoryDto, catId);
+        return categoryService.updateCategory(catId, categoryDto);
     }
 }
