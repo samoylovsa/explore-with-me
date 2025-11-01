@@ -11,8 +11,10 @@ import ewm.mapper.event.EventMapper;
 import ewm.model.category.Category;
 import ewm.model.event.Event;
 import ewm.model.event.EventState;
+import ewm.model.user.User;
 import ewm.repository.category.CategoryRepository;
 import ewm.repository.event.EventRepository;
+import ewm.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,7 +25,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor

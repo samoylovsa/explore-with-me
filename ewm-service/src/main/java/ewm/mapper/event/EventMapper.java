@@ -5,10 +5,12 @@ import ewm.dto.event.EventFullDto;
 import ewm.dto.event.EventShortDto;
 import ewm.dto.event.LocationDto;
 import ewm.dto.event.NewEventDto;
+import ewm.dto.user.UserShortDto;
 import ewm.model.category.Category;
 import ewm.model.event.Event;
 import ewm.model.event.EventState;
 import ewm.model.event.Location;
+import ewm.model.user.User;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;

@@ -1,6 +1,8 @@
 package ewm.dto.event;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import ewm.dto.category.CategoryDto;
+import ewm.dto.user.UserShortDto;
 import ewm.model.event.EventState;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,9 +21,14 @@ public class EventFullDto {
     private CategoryDto category; // {id, name}
 
     private Boolean paid;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime eventDate;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdOn;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime publishedOn;
 
     private Integer participantLimit;
