@@ -1,5 +1,6 @@
 package ewm.dto.event;
 
+import ewm.dto.category.CategoryDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
