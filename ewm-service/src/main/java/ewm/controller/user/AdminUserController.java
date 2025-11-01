@@ -1,5 +1,6 @@
 package ewm.controller.user;
 
+import ewm.dto.user.AdminUserGetParams;
 import ewm.dto.user.UserDto;
 import ewm.service.user.UserService;
 import jakarta.validation.Valid;
@@ -25,8 +26,8 @@ public class AdminUserController {
     }
 
     @GetMapping
-    public List<UserDto> getUsers() {
-        return userService.getUsers();
+    public List<UserDto> getUsers(@Valid AdminUserGetParams params) {
+        return userService.getUsers(params);
     }
 
     @DeleteMapping("/{userId}")
