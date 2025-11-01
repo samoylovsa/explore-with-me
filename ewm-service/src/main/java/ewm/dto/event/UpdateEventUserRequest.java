@@ -11,7 +11,7 @@ public class UpdateEventUserRequest {
     private String title;
     private String description;
     private String annotation;
-    private Integer category;
+    private Long category;
     private LocalDateTime eventDate;
     private Boolean paid;
     private Integer participantLimit;
