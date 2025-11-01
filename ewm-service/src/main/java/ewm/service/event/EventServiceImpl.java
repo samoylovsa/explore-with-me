@@ -49,17 +49,17 @@ public class EventServiceImpl implements EventService{
                     "которая еще не наступила. Value:%s",newEventDto.getEventDate().toString()));
         }
 
-        Event event = EventMapper.toEntity(newEventDto, initiator, category);
+        Event event = eventMapper.toEntity(newEventDto, initiator, category);
         event = eventRepository.save(event);
 
-        return EventMapper.toFullDto(event, 0, 0);
+        return eventMapper.toFullDto(event, 0, 0);
     }
 
     @Override
     public List<EventShortDto> getUserEvents(Long userId, int from, int size) {
         Pageable pageable = PageRequest.of(from/size, size, Sort.by("id"));
         Page<Event> page = eventRepository.findAllByInitiatorId(userId, pageable);
-        return page.stream().map(event -> EventMapper.toShortDto(event, 0, 0)).toList();
+        return page.stream().map(event -> eventMapper.toShortDto(event, 0, 0)).toList();
     }
 
     @Override
@@ -122,7 +122,7 @@ public class EventServiceImpl implements EventService{
             }
         }
         event = eventRepository.save(event);
-        return EventMapper.toFullDto(event, 0, 0);
+        return eventMapper.toFullDto(event, 0, 0);
     }
 
     @Override
@@ -133,6 +133,6 @@ public class EventServiceImpl implements EventService{
             throw new NotFoundException(String.format("Event with id=%d not found for user with id=%d", eventId,
                     userId));
         }
-        return EventMapper.toFullDto(event, 0, 0);
+        return eventMapper.toFullDto(event, 0, 0);
     }
 }
