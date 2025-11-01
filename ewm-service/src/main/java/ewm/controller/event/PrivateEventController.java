@@ -8,6 +8,7 @@ import ewm.service.event.EventService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,9 +21,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PrivateEventController {
 
-    EventService eventService;
+    private final EventService eventService;
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public EventFullDto createEvent(@PathVariable Long userId,
                                     @Valid @RequestBody NewEventDto newEventDto) {
         return eventService.createEvent(userId, newEventDto);
