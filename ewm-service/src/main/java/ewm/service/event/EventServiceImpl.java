@@ -4,11 +4,14 @@ import ewm.dto.event.EventFullDto;
 import ewm.dto.event.EventShortDto;
 import ewm.dto.event.NewEventDto;
 import ewm.dto.event.UpdateEventUserRequest;
+import ewm.exception.BusinessRuleException;
 import ewm.exception.NotFoundException;
 import ewm.exception.ValidationException;
 import ewm.mapper.event.EventMapper;
+import ewm.model.category.Category;
 import ewm.model.event.Event;
 import ewm.model.event.EventState;
+import ewm.repository.category.CategoryRepository;
 import ewm.repository.event.EventRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -36,10 +39,10 @@ public class EventServiceImpl implements EventService{
     @Transactional
     public EventFullDto createEvent(Long userId, NewEventDto newEventDto) {
         User initiator = userRepository.findById(userId).orElseThrow(() ->
-                new NotFoundException("Пользователь не найдет", userId));
+                new NotFoundException(String.format("User with id=%d was not found", userId)));
 
         Category category = categoryRepository.findById(newEventDto.getCategory()).orElseThrow(() ->
-                new NotFoundException("Категория не найдена", newEventDto.getCategory()));
+                new NotFoundException(String.format("Category with id=%d was not found", newEventDto.getCategory())));
 
         if (newEventDto.getEventDate().isBefore(LocalDateTime.now().plusHours(2))) {
             throw new ValidationException(String.format("Field: eventDate. Error: должно содержать дату, " +
@@ -60,22 +63,23 @@ public class EventServiceImpl implements EventService{
     }
 
     @Override
+    @Transactional
     public EventFullDto updateUserEvent(Long userId, Long eventId, UpdateEventUserRequest updateEventUserRequest) {
         Event event = eventRepository.findById(eventId).orElseThrow(() ->
                 new NotFoundException(String.format("Event with id=%d not found", eventId)));
 
         if (!event.getInitiator().getId().equals(userId)) {
-            throw new ValidationException(String.format("User with id=%d is not the initiator of this event", userId));
+            throw new BusinessRuleException(String.format("User with id=%d is not the initiator of this event", userId));
         }
 
         if (event.getState() == EventState.PUBLISHED) {
-            throw new ValidationException("Published events can not be changed");
+            throw new BusinessRuleException("Event must not be published");
         }
 
         if (updateEventUserRequest.getEventDate() != null
                 && updateEventUserRequest.getEventDate().isBefore(LocalDateTime.now().plusHours(2))) {
-            throw new ValidationException("Date and time for which the event is scheduled cannot be earlier than " +
-                    "two hours from the current moment");
+            throw new ValidationException(String.format("Field: eventDate. Error: должно содержать дату, " +
+                    "которая еще не наступила. Value:%s",updateEventUserRequest.getEventDate().toString()));
         }
 
         if (updateEventUserRequest.getTitle()!= null)
@@ -109,7 +113,7 @@ public class EventServiceImpl implements EventService{
                     if (event.getState() == EventState.PENDING) {
                         event.setState(EventState.CANCELED);
                     } else {
-                        throw new ValidationException("Only pending events can be canceled");
+                        throw new BusinessRuleException("Only pending events can be canceled");
                     }
                     break;
                 case SEND_TO_REVIEW:
