@@ -141,4 +141,15 @@ public class ErrorHandler {
                 LocalDateTime.now()
         );
     }
+
+    @ExceptionHandler(ValidationException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ApiError handleValidation(ValidationException ex) {
+        return new ApiError(
+                HttpStatus.FORBIDDEN,
+                "For the requested operation the conditions are not met.",
+                ex.getMessage(),
+                LocalDateTime.now()
+        );
+    }
 }

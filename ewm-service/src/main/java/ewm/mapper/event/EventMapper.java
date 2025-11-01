@@ -1,18 +1,22 @@
 package ewm.mapper.event;
 
+import ewm.dto.category.CategoryDto;
 import ewm.dto.event.EventFullDto;
 import ewm.dto.event.EventShortDto;
 import ewm.dto.event.LocationDto;
 import ewm.dto.event.NewEventDto;
+import ewm.model.category.Category;
 import ewm.model.event.Event;
 import ewm.model.event.EventState;
 import ewm.model.event.Location;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
+@Component
 public class EventMapper {
 
-    public static Event toEntity(NewEventDto newEventDto, User initiator, Category category) {
+    public Event toEntity(NewEventDto newEventDto, User initiator, Category category) {
         Event event = new Event();
         event.setTitle(newEventDto.getTitle());
         event.setAnnotation(newEventDto.getAnnotation());
@@ -35,7 +39,7 @@ public class EventMapper {
         return event;
     }
 
-    public static EventFullDto toFullDto(Event event, int confirmedRequests, long views) {
+    public EventFullDto toFullDto(Event event, int confirmedRequests, long views) {
         EventFullDto eventFullDto = new EventFullDto();
         eventFullDto.setId(event.getId());
         eventFullDto.setTitle(event.getTitle());
@@ -71,7 +75,7 @@ public class EventMapper {
         return eventFullDto;
     }
 
-    public static EventShortDto toShortDto(Event event, int confirmedRequests, long views) {
+    public EventShortDto toShortDto(Event event, int confirmedRequests, long views) {
         EventShortDto eventShortDto = new EventShortDto();
         eventShortDto.setId(event.getId());
         eventShortDto.setTitle(event.getTitle());
@@ -79,7 +83,7 @@ public class EventMapper {
         eventShortDto.setPaid(event.getPaid());
         eventShortDto.setEventDate(event.getEventDate());
 
-        CategoryDto categoryDto = new CategoryDto(); // проверить
+        CategoryDto categoryDto = new CategoryDto();
         categoryDto.setId(event.getCategory().getId());
         categoryDto.setName(event.getCategory().getName());
         eventShortDto.setCategory(categoryDto);
@@ -91,6 +95,7 @@ public class EventMapper {
 
         eventShortDto.setConfirmedRequests(confirmedRequests);
         eventShortDto.setViews(views);
+        return eventShortDto;
     }
 
 }
