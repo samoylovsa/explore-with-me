@@ -29,7 +29,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class EventServiceImpl implements EventService{
+public class EventServiceImpl implements EventService {
 
     private final EventRepository eventRepository;
     private final UserRepository userRepository;
@@ -47,7 +47,7 @@ public class EventServiceImpl implements EventService{
 
         if (newEventDto.getEventDate().isBefore(LocalDateTime.now().plusHours(2))) {
             throw new ValidationException(String.format("Field: eventDate. Error: должно содержать дату, " +
-                    "которая еще не наступила. Value:%s",newEventDto.getEventDate().toString()));
+                    "которая еще не наступила. Value:%s", newEventDto.getEventDate().toString()));
         }
 
         Event event = eventMapper.toEntity(newEventDto, initiator, category);
@@ -58,7 +58,7 @@ public class EventServiceImpl implements EventService{
 
     @Override
     public List<EventShortDto> getUserEvents(Long userId, int from, int size) {
-        Pageable pageable = PageRequest.of(from/size, size, Sort.by("id"));
+        Pageable pageable = PageRequest.of(from / size, size, Sort.by("id"));
         Page<Event> page = eventRepository.findAllByInitiatorId(userId, pageable);
         return page.stream().map(event -> eventMapper.toShortDto(event, 0, 0)).toList();
     }
@@ -80,10 +80,10 @@ public class EventServiceImpl implements EventService{
         if (updateEventUserRequest.getEventDate() != null
                 && updateEventUserRequest.getEventDate().isBefore(LocalDateTime.now().plusHours(2))) {
             throw new ValidationException(String.format("Field: eventDate. Error: должно содержать дату, " +
-                    "которая еще не наступила. Value:%s",updateEventUserRequest.getEventDate().toString()));
+                    "которая еще не наступила. Value:%s", updateEventUserRequest.getEventDate().toString()));
         }
 
-        if (updateEventUserRequest.getTitle()!= null)
+        if (updateEventUserRequest.getTitle() != null)
             event.setTitle(updateEventUserRequest.getTitle());
         if (updateEventUserRequest.getDescription() != null)
             event.setDescription(updateEventUserRequest.getDescription());
@@ -96,11 +96,11 @@ public class EventServiceImpl implements EventService{
             );
             event.setCategory(category);
         }
-        if (updateEventUserRequest.getEventDate()!=null)
+        if (updateEventUserRequest.getEventDate() != null)
             event.setEventDate(updateEventUserRequest.getEventDate());
-        if (updateEventUserRequest.getPaid()!=null)
+        if (updateEventUserRequest.getPaid() != null)
             event.setPaid(updateEventUserRequest.getPaid());
-        if (updateEventUserRequest.getParticipantLimit()!= null)
+        if (updateEventUserRequest.getParticipantLimit() != null)
             event.setParticipantLimit(updateEventUserRequest.getParticipantLimit());
         if (updateEventUserRequest.getRequestModeration() != null)
             event.setRequestModeration(updateEventUserRequest.getRequestModeration());
@@ -108,7 +108,7 @@ public class EventServiceImpl implements EventService{
             event.getLocation().setLat(updateEventUserRequest.getLocation().getLat());
             event.getLocation().setLon(updateEventUserRequest.getLocation().getLon());
         }
-        if (updateEventUserRequest.getStateAction()!= null) {
+        if (updateEventUserRequest.getStateAction() != null) {
             switch (updateEventUserRequest.getStateAction()) {
                 case CANCEL_REVIEW:
                     if (event.getState() == EventState.PENDING) {
