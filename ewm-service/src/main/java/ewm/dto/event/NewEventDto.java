@@ -42,4 +42,6 @@ public class NewEventDto {
     @NotBlank(message = "Title cannot be empty")
     @Size(min = 3, max = 120)
     private String title;
+
+
 }

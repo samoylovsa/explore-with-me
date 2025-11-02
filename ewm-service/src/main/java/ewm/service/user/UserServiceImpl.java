@@ -56,10 +56,6 @@ public class UserServiceImpl implements UserService {
     public void deleteBy(Long userId) {
         log.debug("deleteBy(userId={})", userId);
         getUserById(userId);
-        /*User user = repository.findById(userId).orElseThrow(() -> {
-            log.debug(repository.findAll().stream().map(User::getId).toList().toString());
-            return new NotFoundException("User with id=" + userId + " was not found");
-        });*/
         repository.deleteById(userId);
     }
 

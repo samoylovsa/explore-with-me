@@ -1,10 +1,7 @@
 package ewm.service.event;
 
-import ewm.dto.event.EventFullDto;
-import ewm.dto.event.EventShortDto;
-import ewm.dto.event.NewEventDto;
-import ewm.dto.event.UpdateEventUserRequest;
-
+import ewm.dto.event.*;
+import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface EventService {
@@ -15,4 +12,14 @@ public interface EventService {
     EventFullDto updateUserEvent(Long userId, Long eventId, UpdateEventUserRequest updateEventUserRequest);
 
     EventFullDto getUserEvent(Long userId, Long eventId);
+
+    EventFullDto getEventById(Long eventId);
+
+    List<EventFullDto> getEventsAdmin(GetEventAdminRequest request, Pageable pageable);
+
+    EventFullDto updateEventAdmin(Long eventId, UpdateEventAdminRequest request);
+
+    List<EventShortDto> getEventsPublic(GetEventPublicRequest requestParams, Pageable pageable);
+
+    EventFullDto getEventByIdPublic(Long eventId);
 }
