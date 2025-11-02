@@ -55,11 +55,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteBy(Long userId) {
         log.debug("deleteBy(userId={})", userId);
-        User user = repository.findById(userId).orElseThrow(() -> {
+        getUserById(userId);
+        /*User user = repository.findById(userId).orElseThrow(() -> {
             log.debug(repository.findAll().stream().map(User::getId).toList().toString());
             return new NotFoundException("User with id=" + userId + " was not found");
-        });
+        });*/
+        repository.deleteById(userId);
+    }
 
-        repository.deleteById(user.getId());
+    @Override
+    public UserDto getUserById(Long userId) {
+        return userMapper.toUserDto(repository.findById(userId)
+                .orElseThrow(() -> new NotFoundException("User with id= " + userId + " was not found")));
     }
 }

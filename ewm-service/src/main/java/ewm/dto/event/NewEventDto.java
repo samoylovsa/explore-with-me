@@ -8,6 +8,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -42,6 +43,4 @@ public class NewEventDto {
     @NotBlank(message = "Title cannot be empty")
     @Size(min = 3, max = 120)
     private String title;
-
-
 }
