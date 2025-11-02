@@ -60,7 +60,7 @@ public class EventServiceImpl implements EventService {
 
         if (newEventDto.getEventDate().isBefore(LocalDateTime.now().plusHours(2))) {
             throw new ValidationException(String.format("Field: eventDate. Error: должно содержать дату, " +
-                    "которая еще не наступила. Value:%s",newEventDto.getEventDate().toString()));
+                    "которая еще не наступила. Value:%s", newEventDto.getEventDate().toString()));
         }
 
         Event event = eventMapper.toEntity(newEventDto, initiator, category);
@@ -98,7 +98,7 @@ public class EventServiceImpl implements EventService {
         if (updateEventUserRequest.getEventDate() != null
                 && updateEventUserRequest.getEventDate().isBefore(LocalDateTime.now().plusHours(2))) {
             throw new ValidationException(String.format("Field: eventDate. Error: должно содержать дату, " +
-                    "которая еще не наступила. Value:%s",updateEventUserRequest.getEventDate().toString()));
+                    "которая еще не наступила. Value:%s", updateEventUserRequest.getEventDate().toString()));
         }
 
         if (updateEventUserRequest.getTitle() != null)
