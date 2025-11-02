@@ -6,7 +6,6 @@ import ewm.dto.event.NewEventDto;
 import ewm.dto.event.UpdateEventUserRequest;
 import ewm.exception.BusinessRuleException;
 import ewm.exception.NotFoundException;
-import ewm.exception.ValidationException;
 import ewm.mapper.event.EventMapper;
 import ewm.model.category.Category;
 import ewm.model.event.Event;
@@ -46,7 +45,7 @@ public class EventServiceImpl implements EventService {
                 new NotFoundException(String.format("Category with id=%d was not found", newEventDto.getCategory())));
 
         if (newEventDto.getEventDate().isBefore(LocalDateTime.now().plusHours(2))) {
-            throw new ValidationException(String.format("Field: eventDate. Error: должно содержать дату, " +
+            throw new BusinessRuleException(String.format("Field: eventDate. Error: должно содержать дату, " +
                     "которая еще не наступила. Value:%s", newEventDto.getEventDate().toString()));
         }
 
@@ -79,7 +78,7 @@ public class EventServiceImpl implements EventService {
 
         if (updateEventUserRequest.getEventDate() != null
                 && updateEventUserRequest.getEventDate().isBefore(LocalDateTime.now().plusHours(2))) {
-            throw new ValidationException(String.format("Field: eventDate. Error: должно содержать дату, " +
+            throw new BusinessRuleException(String.format("Field: eventDate. Error: должно содержать дату, " +
                     "которая еще не наступила. Value:%s", updateEventUserRequest.getEventDate().toString()));
         }
 
