@@ -27,6 +27,6 @@ CREATE TABLE IF NOT EXISTS events (
     participant_limit  INTEGER           NOT NULL DEFAULT 0,
     request_moderation BOOLEAN           NOT NULL DEFAULT TRUE,
     state              VARCHAR(50)       NOT NULL,
-    lat       DOUBLE PRECISION,
-    lon       DOUBLE PRECISION
+    lat                 DOUBLE PRECISION,
+    lon                 DOUBLE PRECISION
 );
