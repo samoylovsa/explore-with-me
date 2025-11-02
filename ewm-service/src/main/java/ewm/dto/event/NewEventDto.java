@@ -40,15 +40,8 @@ public class NewEventDto {
     private Boolean requestModeration;
 
     @NotBlank(message = "Title cannot be empty")
-    @Size(max = 255)
+    @Size(min = 3, max = 120)
     private String title;
-
-
-
-
-
-
-
 
 
 }
