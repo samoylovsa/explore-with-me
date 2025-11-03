@@ -1,8 +1,11 @@
 package ewm.mapper.request;
 
+import ewm.dto.request.UpdateStatusRequestDto_Resp;
 import ewm.dto.request.UserRequestDto;
 import ewm.model.request.Request;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class RequestMapper {
@@ -23,6 +26,13 @@ public class RequestMapper {
                 request.getEventId(),
                 request.getRequesterId(),
                 request.getStatus()
+        );
+    }
+
+    public UpdateStatusRequestDto_Resp toUpdateStatusRequestDto_Resp(List<UserRequestDto> confirmedRequests, List<UserRequestDto> rejectedRequests) {
+        return new UpdateStatusRequestDto_Resp(
+                confirmedRequests,
+                rejectedRequests
         );
     }
 }

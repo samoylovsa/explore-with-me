@@ -4,7 +4,11 @@ import ewm.dto.event.EventFullDto;
 import ewm.dto.event.EventShortDto;
 import ewm.dto.event.NewEventDto;
 import ewm.dto.event.UpdateEventUserRequest;
+import ewm.dto.request.UpdateStatusRequestDto_Req;
+import ewm.dto.request.UpdateStatusRequestDto_Resp;
+import ewm.dto.request.UserRequestDto;
 import ewm.service.event.EventService;
+import ewm.service.request.RequestService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +26,7 @@ import java.util.List;
 public class PrivateEventController {
 
     private final EventService eventService;
+    private final RequestService requestService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -48,5 +53,18 @@ public class PrivateEventController {
     public EventFullDto getUserEvent(@PathVariable Long userId,
                                      @PathVariable Long eventId) {
         return eventService.getUserEvent(userId, eventId);
+    }
+
+    @GetMapping("/{eventId}/requests")
+    public List<UserRequestDto> getRequestsByEventId(@PathVariable("userId") Long userId,
+                                                   @PathVariable("eventId") Long eventId) {
+        return requestService.getRequestsByEventId(userId, eventId);
+    }
+
+    @PatchMapping("/{eventId}/requests")
+    public UpdateStatusRequestDto_Resp updateRequestStatus(@PathVariable("userId") Long userId,
+                                                           @PathVariable("eventId") Long eventId,
+                                                           @RequestBody UpdateStatusRequestDto_Req request) {
+        return requestService.updateRequestStatus(userId, eventId, request);
     }
 }
