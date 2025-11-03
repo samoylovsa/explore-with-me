@@ -4,8 +4,8 @@ import ewm.dto.event.EventFullDto;
 import ewm.dto.event.EventShortDto;
 import ewm.dto.event.NewEventDto;
 import ewm.dto.event.UpdateEventUserRequest;
-import ewm.dto.request.UpdateStatusRequestDto_Req;
-import ewm.dto.request.UpdateStatusRequestDto_Resp;
+import ewm.dto.request.UpdateStatusRequestDtoReq;
+import ewm.dto.request.UpdateStatusRequestDtoResp;
 import ewm.dto.request.UserRequestDto;
 import ewm.service.event.EventService;
 import ewm.service.request.RequestService;
@@ -62,9 +62,9 @@ public class PrivateEventController {
     }
 
     @PatchMapping("/{eventId}/requests")
-    public UpdateStatusRequestDto_Resp updateRequestStatus(@PathVariable("userId") Long userId,
-                                                           @PathVariable("eventId") Long eventId,
-                                                           @RequestBody UpdateStatusRequestDto_Req request) {
+    public UpdateStatusRequestDtoResp updateRequestStatus(@PathVariable("userId") Long userId,
+                                                          @PathVariable("eventId") Long eventId,
+                                                          @RequestBody UpdateStatusRequestDtoReq request) {
         return requestService.updateRequestStatus(userId, eventId, request);
     }
 }

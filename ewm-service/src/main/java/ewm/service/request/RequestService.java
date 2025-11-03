@@ -1,7 +1,7 @@
 package ewm.service.request;
 
-import ewm.dto.request.UpdateStatusRequestDto_Req;
-import ewm.dto.request.UpdateStatusRequestDto_Resp;
+import ewm.dto.request.UpdateStatusRequestDtoReq;
+import ewm.dto.request.UpdateStatusRequestDtoResp;
 import ewm.dto.request.UserRequestDto;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,5 +20,5 @@ public interface RequestService {
     List<UserRequestDto> getRequestsByEventId(Long userId, Long eventId);
 
     @Transactional
-    UpdateStatusRequestDto_Resp updateRequestStatus(Long userId, Long eventId, UpdateStatusRequestDto_Req request);
+    UpdateStatusRequestDtoResp updateRequestStatus(Long userId, Long eventId, UpdateStatusRequestDtoReq request);
 }

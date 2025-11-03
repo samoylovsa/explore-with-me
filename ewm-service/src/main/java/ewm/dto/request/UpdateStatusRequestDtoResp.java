@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateStatusRequestDto_Resp {
+public class UpdateStatusRequestDtoResp {
 
     List<UserRequestDto> confirmedRequests;
     List<UserRequestDto> rejectedRequests;

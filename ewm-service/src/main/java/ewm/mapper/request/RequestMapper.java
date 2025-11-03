@@ -1,6 +1,6 @@
 package ewm.mapper.request;
 
-import ewm.dto.request.UpdateStatusRequestDto_Resp;
+import ewm.dto.request.UpdateStatusRequestDtoResp;
 import ewm.dto.request.UserRequestDto;
 import ewm.model.request.Request;
 import org.springframework.stereotype.Component;
@@ -29,8 +29,8 @@ public class RequestMapper {
         );
     }
 
-    public UpdateStatusRequestDto_Resp toUpdateStatusRequestDto_Resp(List<UserRequestDto> confirmedRequests, List<UserRequestDto> rejectedRequests) {
-        return new UpdateStatusRequestDto_Resp(
+    public UpdateStatusRequestDtoResp toUpdateStatusRequestDtoResp(List<UserRequestDto> confirmedRequests, List<UserRequestDto> rejectedRequests) {
+        return new UpdateStatusRequestDtoResp(
                 confirmedRequests,
                 rejectedRequests
         );

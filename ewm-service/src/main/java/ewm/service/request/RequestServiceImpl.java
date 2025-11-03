@@ -1,8 +1,8 @@
 package ewm.service.request;
 
 import ewm.dto.event.EventFullDto;
-import ewm.dto.request.UpdateStatusRequestDto_Req;
-import ewm.dto.request.UpdateStatusRequestDto_Resp;
+import ewm.dto.request.UpdateStatusRequestDtoReq;
+import ewm.dto.request.UpdateStatusRequestDtoResp;
 import ewm.dto.request.UserRequestDto;
 import ewm.dto.user.UserDto;
 import ewm.exception.ConflictException;
@@ -110,7 +110,7 @@ public class RequestServiceImpl implements RequestService {
 
     @Transactional
     @Override
-    public UpdateStatusRequestDto_Resp updateRequestStatus(Long userId, Long eventId, UpdateStatusRequestDto_Req request) {
+    public UpdateStatusRequestDtoResp updateRequestStatus(Long userId, Long eventId, UpdateStatusRequestDtoReq request) {
         EventFullDto event = eventService.getEventById(eventId);
 
         if (!event.getInitiator().getId().equals(userId)) {
@@ -177,7 +177,7 @@ public class RequestServiceImpl implements RequestService {
             }
         }
         requestRepository.saveAll(requestsForUpdate);
-        return requestMapper.toUpdateStatusRequestDto_Resp(confirmedRequests, rejectedRequests);
+        return requestMapper.toUpdateStatusRequestDtoResp(confirmedRequests, rejectedRequests);
     }
 
     private boolean eventHasFreeSlot(EventFullDto event) {
