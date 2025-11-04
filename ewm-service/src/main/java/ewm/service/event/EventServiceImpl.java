@@ -243,6 +243,24 @@ public class EventServiceImpl implements EventService {
             categoryRepository.findById(request.getCategory()).orElseThrow(() ->
                     new NotFoundException("Категория не найдена"));
         }
+        if (request.getAnnotation() != null) {
+            event.setAnnotation(request.getAnnotation());
+        }
+        if (request.getPaid() != null) {
+            event.setPaid(request.getPaid());
+        }
+        if (request.getEventDate() != null) {
+            event.setEventDate(request.getEventDate());
+        }
+        if (request.getDescription() != null) {
+            event.setDescription(request.getDescription());
+        }
+        if (request.getTitle() != null) {
+            event.setTitle(request.getTitle());
+        }
+        if (request.getParticipantLimit() != null) {
+            event.setParticipantLimit(request.getParticipantLimit());
+        }
 
         Event updatedEvent = eventRepository.save(event);
         List<Long> searchEventIds = List.of(updatedEvent.getId());
