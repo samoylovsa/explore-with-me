@@ -5,6 +5,7 @@ import ewm.dto.event.EventFullDto;
 import ewm.dto.event.UpdateEventAdminRequest;
 import ewm.model.event.EventState;
 import ewm.service.event.EventService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -51,7 +52,7 @@ public class AdminEventController {
 
     @PatchMapping("/{eventId}")
     public EventFullDto updateAdminEvent(@PathVariable Long eventId,
-                                         @RequestBody UpdateEventAdminRequest updateEventAdminRequest) {
+                                         @Valid @RequestBody UpdateEventAdminRequest updateEventAdminRequest) {
         log.info("Received request: {} to admin update event with id {}", updateEventAdminRequest, eventId);
         return eventService.updateAdminEvent(eventId, updateEventAdminRequest);
     }

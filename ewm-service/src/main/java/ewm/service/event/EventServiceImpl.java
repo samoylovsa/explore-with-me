@@ -79,7 +79,7 @@ public class EventServiceImpl implements EventService {
                     if (event.getState() == EventState.PENDING) {
                         event.setState(EventState.CANCELED);
                     } else {
-                        throw new BusinessRuleException("Only pending events can be canceled");
+                        throw new ConflictException("Only pending events can be canceled");
                     }
                 }
                 case SEND_TO_REVIEW -> event.setState(EventState.PENDING);
@@ -118,14 +118,14 @@ public class EventServiceImpl implements EventService {
             switch (updateEventAdminRequest.getStateAction()) {
                 case PUBLISH_EVENT -> {
                     if (event.getState() != EventState.PENDING) {
-                        throw new BusinessRuleException("Only pending events can be published");
+                        throw new ConflictException("Only pending events can be published");
                     }
                     event.setState(EventState.PUBLISHED);
                     event.setPublishedOn(LocalDateTime.now());
                 }
                 case REJECT_EVENT -> {
                     if (event.getState() != EventState.PENDING) {
-                        throw new BusinessRuleException("Only pending events can be canceled");
+                        throw new ConflictException("Only pending events can be canceled");
                     }
                     event.setState(EventState.CANCELED);
                 }
