@@ -4,9 +4,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
-public class UpdateEventUserRequest extends UpdateEventRequest {
-    private StateAction stateAction;
+public class UpdateEventAdminRequest extends UpdateEventRequest {
+    private AdminStateAction stateAction;
 }
