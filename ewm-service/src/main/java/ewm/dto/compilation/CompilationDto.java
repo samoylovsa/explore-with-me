@@ -4,6 +4,7 @@ import ewm.dto.event.EventShortDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.util.Set;
 
 @Data

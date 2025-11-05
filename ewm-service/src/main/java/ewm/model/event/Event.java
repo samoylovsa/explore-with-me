@@ -1,8 +1,6 @@
 package ewm.model.event;
 
 import ewm.model.category.Category;
-import ewm.model.category.Category;
-import ewm.model.user.User;
 import ewm.model.user.User;
 import jakarta.persistence.*;
 import lombok.*;
