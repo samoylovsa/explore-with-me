@@ -2,7 +2,10 @@ package ewm.service.event;
 
 import ewm.dto.event.*;
 import ewm.dto.request.CountConfirmedRequestsByEventId;
-import ewm.exception.*;
+import ewm.exception.BusinessRuleException;
+import ewm.exception.ConflictException;
+import ewm.exception.NotFoundException;
+import ewm.exception.ValidationException;
 import ewm.mapper.event.EventMapper;
 import ewm.model.category.Category;
 import ewm.model.event.Event;
