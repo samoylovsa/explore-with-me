@@ -4,6 +4,7 @@ import ewm.dto.event.EventFullDto;
 import ewm.dto.event.EventShortDto;
 import ewm.dto.event.GetEventPublicRequest;
 import ewm.service.event.EventService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,8 +32,10 @@ public class PublicEventController {
     }
 
     @GetMapping("/{id}")
-    public EventFullDto getEventByIdPublic(@PathVariable("id") Long eventId) {
+    public EventFullDto getEventByIdPublic(@PathVariable("id") Long eventId, HttpServletRequest request) {
         log.debug("getEventByIdPublic eventId = {}", eventId);
-        return eventService.getEventByIdPublic(eventId);
+        // получаем ip арес вызова сервиса
+        String ip = request.getRemoteAddr();
+        return eventService.getEventByIdPublic(eventId, ip);
     }
 }
