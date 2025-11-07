@@ -14,11 +14,11 @@ import java.util.List;
 @NoArgsConstructor
 @Builder(toBuilder = true)
 public class StatsRequest {
-    @NotNull
+    @NotNull(message = "start не может быть пустым")
     @PastOrPresent
     LocalDateTime start;
 
-    @NotNull
+    @NotNull(message = "end не может быть пустым")
     LocalDateTime end;
 
     List<String> uris;
