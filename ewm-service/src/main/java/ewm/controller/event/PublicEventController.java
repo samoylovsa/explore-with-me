@@ -23,12 +23,14 @@ public class PublicEventController {
     private final EventService eventService;
 
     @GetMapping
-    public List<EventShortDto> getEventsPublic(@ModelAttribute @Valid GetEventPublicRequest request) {
+    public List<EventShortDto> getEventsPublic(@ModelAttribute @Valid GetEventPublicRequest request, HttpServletRequest httpRequest) {
         int size = (request.getSize() != null && request.getSize() > 0) ? request.getSize() : 10;
         int from = request.getFrom() != null ? request.getFrom() : 0;
         PageRequest pageRequest = PageRequest.of(from / size, size);
         log.debug("getEventsPublic request = {}", request);
-        return eventService.getEventsPublic(request, pageRequest);
+        // получаем ip арес вызова сервиса
+        String ip = httpRequest.getRemoteAddr();
+        return eventService.getEventsPublic(request, pageRequest, ip);
     }
 
     @GetMapping("/{id}")

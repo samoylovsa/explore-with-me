@@ -7,12 +7,17 @@ import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.client.RestClient;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -113,5 +118,22 @@ public class StatsClient {
 
     public List<GetStatsDto> getStatsForUris(LocalDateTime start, LocalDateTime end, List<String> uris) {
         return getStats(start, end, uris, false);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
+        String errorMessage = ex.getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .findFirst()
+                .map(error -> String.format("Field: %s. Error: %s. Value: %s",
+                        error.getField(), error.getDefaultMessage(), error.getRejectedValue()))
+                .orElse("Validation failed");
+        return new ErrorResponse(
+                HttpStatus.BAD_REQUEST,
+                "Incorrectly made request.",
+                Arrays.toString(ex.getStackTrace())
+        );
     }
 }
