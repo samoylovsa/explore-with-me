@@ -1,7 +1,7 @@
 package dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import dto.validation.ValidIpAddress;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
 import lombok.*;
 
@@ -14,13 +14,14 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder(toBuilder = true)
 public class SaveHitDto {
-    private Long id;
 
+    @NotBlank(message = "App не может быть пустым")
     private String app;
 
+    @NotBlank(message = "Uri не может быть пустым")
     private String uri;
 
-    @ValidIpAddress
+    @NotBlank(message = "ip не может быть пустым")
     private String ip;
 
     @PastOrPresent

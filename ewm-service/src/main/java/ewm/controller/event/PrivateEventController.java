@@ -9,6 +9,7 @@ import ewm.dto.request.UpdateStatusRequestDtoResp;
 import ewm.dto.request.UserRequestDto;
 import ewm.service.event.EventService;
 import ewm.service.request.RequestService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -51,8 +52,12 @@ public class PrivateEventController {
 
     @GetMapping("/{eventId}")
     public EventFullDto getUserEvent(@PathVariable Long userId,
-                                     @PathVariable Long eventId) {
-        return eventService.getUserEvent(userId, eventId);
+                                     @PathVariable Long eventId,
+                                     HttpServletRequest request) {
+        log.debug("getEventByIdPublic eventId = {}", eventId);
+        // получаем ip арес вызова сервиса
+        String ip = request.getRemoteAddr();
+        return eventService.getUserEvent(userId, eventId, ip);
     }
 
     @GetMapping("/{eventId}/requests")

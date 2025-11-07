@@ -12,7 +12,7 @@ public interface EventService {
 
     EventFullDto updateUserEvent(Long userId, Long eventId, UpdateEventUserRequest updateEventUserRequest);
 
-    EventFullDto getUserEvent(Long userId, Long eventId);
+    EventFullDto getUserEvent(Long userId, Long eventId, String ip);
 
     EventFullDto getEventById(Long eventId);
 
@@ -22,5 +22,5 @@ public interface EventService {
 
     List<EventShortDto> getEventsPublic(GetEventPublicRequest requestParams, Pageable pageable);
 
-    EventFullDto getEventByIdPublic(Long eventId);
+    EventFullDto getEventByIdPublic(Long eventId, String ip);
 }
