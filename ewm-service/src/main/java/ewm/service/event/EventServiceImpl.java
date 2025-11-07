@@ -284,7 +284,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public List<EventShortDto> getEventsPublic(GetEventPublicRequest request, Pageable pageable) {
+    public List<EventShortDto> getEventsPublic(GetEventPublicRequest request, Pageable pageable, String ip) {
         validateRangeStartAndEnd(request.getRangeStart(), request.getRangeEnd());
 
         Specification<Event> specification = SearchEventSpecifications.addWhereNull();
@@ -320,6 +320,7 @@ public class EventServiceImpl implements EventService {
         List<Long> eventIds = events.stream()
                 .map(Event::getId)
                 .toList();
+        saveHit("/events", ip);
         List<Long> searchEventIds = events.stream()
                 .map(Event::getId)
                 .toList();

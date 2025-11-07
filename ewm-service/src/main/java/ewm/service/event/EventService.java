@@ -20,7 +20,7 @@ public interface EventService {
 
     EventFullDto updateEventAdmin(Long eventId, UpdateEventAdminRequest request);
 
-    List<EventShortDto> getEventsPublic(GetEventPublicRequest requestParams, Pageable pageable);
+    List<EventShortDto> getEventsPublic(GetEventPublicRequest requestParams, Pageable pageable, String ip);
 
     EventFullDto getEventByIdPublic(Long eventId, String ip);
 }
