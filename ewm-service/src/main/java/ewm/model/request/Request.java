@@ -27,16 +27,5 @@ public class Request {
 
     @Enumerated(EnumType.STRING)
     private RequestStatus status;
-/*
-    public void confirmed() {
-        this.status = RequestStatus.CONFIRMED;
-    }
 
-    public void rejected() {
-        this.status = RequestStatus.REJECTED;
-    }
-
-    public void canceled() {
-        this.status = RequestStatus.CANCELED;
-    }*/
 }
