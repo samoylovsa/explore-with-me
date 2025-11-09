@@ -152,4 +152,37 @@ public class ErrorHandler {
                 LocalDateTime.now()
         );
     }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ApiError handleAccessDeniedException(AccessDeniedException ex) {
+        return new ApiError(
+                HttpStatus.FORBIDDEN,
+                "Access denied.",
+                ex.getMessage(),
+                LocalDateTime.now()
+        );
+    }
+
+    @ExceptionHandler(IllegalStateException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ApiError handleIllegalStateException(IllegalStateException ex) {
+        return new ApiError(
+                HttpStatus.CONFLICT,
+                "For the requested operation the conditions are not met.",
+                ex.getMessage(),
+                LocalDateTime.now()
+        );
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiError handleIllegalArgumentException(IllegalArgumentException ex) {
+        return new ApiError(
+                HttpStatus.BAD_REQUEST,
+                "Incorrectly made request.",
+                ex.getMessage(),
+                LocalDateTime.now()
+        );
+    }
 }
