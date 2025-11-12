@@ -54,11 +54,7 @@ public class CommentServiceImpl implements CommentService {
     public void deleteCommentByOwner(Long userId, Long commentId) {
         Comment comment = getComment(commentId);
         validateCommentOwner(comment, userId);
-        if (comment.getStatus() != CommentStatus.DELETED) {
-            comment.setStatus(CommentStatus.DELETED);
-            comment.setUpdated(LocalDateTime.now());
-            commentRepository.save(comment);
-        }
+        markAsDeleted(comment);
     }
 
     @Override
@@ -82,11 +78,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public void deleteCommentByAdmin(Long commentId) {
         Comment comment = getComment(commentId);
-        if (comment.getStatus() != CommentStatus.DELETED) {
-            comment.setStatus(CommentStatus.DELETED);
-            comment.setUpdated(LocalDateTime.now());
-            commentRepository.save(comment);
-        }
+        markAsDeleted(comment);
     }
 
     @Override
@@ -110,7 +102,7 @@ public class CommentServiceImpl implements CommentService {
     @Transactional(readOnly = true)
     public CommentDto getPublishedComment(Long commentId) {
         Comment comment = commentRepository.findByIdAndStatus(commentId, CommentStatus.PUBLISHED)
-                .orElseThrow(() -> new NotFoundException("Comment not found or not published"));
+                .orElseThrow(() -> new NotFoundException("Comment with id=" + commentId + " not found or not published"));
         return commentMapper.toDto(comment);
     }
 
@@ -150,6 +142,14 @@ public class CommentServiceImpl implements CommentService {
     private void validateModerationStatus(CommentStatus status) {
         if (status != CommentStatus.PUBLISHED && status != CommentStatus.REJECTED) {
             throw new IllegalArgumentException("Invalid status for moderation. Only PUBLISHED or REJECTED allowed. Received: " + status);
+        }
+    }
+
+    private void markAsDeleted(Comment comment) {
+        if (comment.getStatus() != CommentStatus.DELETED) {
+            comment.setStatus(CommentStatus.DELETED);
+            comment.setUpdated(LocalDateTime.now());
+            commentRepository.save(comment);
         }
     }
 }
