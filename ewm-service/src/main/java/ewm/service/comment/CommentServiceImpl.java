@@ -36,13 +36,7 @@ public class CommentServiceImpl implements CommentService {
     public CommentDto createComment(Long userId, NewCommentDto newCommentDto) {
         User author = getUser(userId);
         Event event = getEvent(newCommentDto.getEventId());
-        Comment comment = Comment.builder()
-                .text(newCommentDto.getText())
-                .event(event)
-                .author(author)
-                .status(CommentStatus.PENDING)
-                .created(LocalDateTime.now())
-                .build();
+        Comment comment = commentMapper.toEntity(newCommentDto, event, author);
         return commentMapper.toDto(commentRepository.save(comment));
     }
 
